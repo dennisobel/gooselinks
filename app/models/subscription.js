@@ -5,10 +5,12 @@ const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
 
 const subscriptionSchema = new Schema({
-    user:{
-        type: Schema.Types.ObjectId, ref: "UserSchema"
+    phoneNumber:{
+        type: String
     },
-    book:[{type: Schema.Types.ObjectId, ref: "BookSchema"}],    
+    packages:{
+        type:Array
+    },
     time:{
         type: Date,
         default: Date.now()

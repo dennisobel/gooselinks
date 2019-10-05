@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const otpSecret = require("./../configuration/otp");
 const otplib = require('otplib');
 
-
+const sendMessage = require('./../helpers/sms/sms').sendSMS
 
 
 // Pass Hash
@@ -85,7 +85,8 @@ iBookSignup.post = (req,res) => {
                     let sms = `Hi, thank you for joining Goose Links, your One Time Password is ${OTP}`; 
                     let URL = `http://messaging.openocean.co.ke/sendsms.jsp?user=${smsuser}&password=${smspassword}&mobiles=${req.body.data.phoneNumber}&sms=${sms}&clientsmsid=${smsclientsmsid}&senderid=${smssenderid}`
                     
-                    helper.sendMessage(URL)                           
+                    // helper.sendMessage(URL)   
+                    sendMessage(req.body.data.phoneNumber,sms),                        
                     res.status(200).json({
                         success:true,
                         doc:newUser,
