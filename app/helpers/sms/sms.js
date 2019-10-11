@@ -8,7 +8,7 @@ const superagent = require("superagent");
 // const MESSAGE = "Test SMS from nodejs";
 
 const sendSMS = async (mobile,message) => {
-    console.log("INCOMING SMS PARAMS:",{mobile,message})
+    // console.log("INCOMING SMS PARAMS:",{mobile,message})
     const results = await superagent
     .post("https://quicksms.advantasms.com/api/services/sendsms/")
     .send({
@@ -25,7 +25,7 @@ const sendSMS = async (mobile,message) => {
         'content-type', 'application/json'
     )
 
-    console.log("RESULTS:",results)
+    // console.log("RESULTS:",results)
 }
 
 // sendSMS()

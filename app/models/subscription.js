@@ -9,7 +9,14 @@ const subscriptionSchema = new Schema({
         type: String
     },
     packages:{
-        type:Array
+        type: Array
+        // Schema.Types.Mixed
+    },
+    duration:{
+        type: String
+    },
+    amount:{
+        type: String
     },
     time:{
         type: Date,

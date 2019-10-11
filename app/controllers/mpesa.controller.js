@@ -8,7 +8,7 @@ const db = require("../models");
 
 const receiveMpesa = {}
 
-receiveMpesa.post = (req,res) => {
+receiveMpesa.post = (req,res) => { 
     console.log("RECEIVE MPESA:",req.body)
     // RECEIVE SUCCESSFULL MPESA DATA AND UPDATE SUBSCRIPTION
 }

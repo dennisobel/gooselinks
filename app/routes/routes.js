@@ -21,6 +21,7 @@ let appRouter = (app)=>{
     app.post('/search',search.post)
 
     app.get('/getfriend/:phoneNumber',getFriend.get)
+    app.get('/getSubscriptions/:phoneNumber', subscribe.get)
 }
 
 module.exports = appRouter;
