@@ -4,22 +4,37 @@ const { Schema } = mongoose;
 
 mongoose.Promise = global.Promise;
 
-const GiftSchema = new Schema({
+const giftSchema = new Schema({
     recepient:{
-        type: Schema.Types.ObjectId, ref: "UserSchema"
+        type: String
     },
     sender:{
-        type: Schema.Types.ObjectId, ref: "UserSchema"
+        type: String
     },
-    book:[{type: Schema.Types.ObjectId, ref: "BookSchema"}],    
+    packages:{
+        type: Array
+        // Schema.Types.Mixed
+    },
+    duration:{
+        type: String
+    },
+    amount:{
+        type: String
+    },
     time:{
         type: Date,
         default: Date.now()
     },
     status:{
-        // Subscription active or expired
+        type: String,
+        default: "Inactive"
+    },
+    expires:{
         type: String
-    }    
+    },
+    mpesaRequest:{
+        type: String
+    }        
 })
 
-module.exports = mongoose.model("GiftSchema", GiftSchema);
+module.exports = mongoose.model("GiftSchema", giftSchema);

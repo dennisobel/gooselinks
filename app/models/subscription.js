@@ -27,6 +27,9 @@ const subscriptionSchema = new Schema({
         type: String,
         default: "Inactive"
     },
+    mpesaRequest:{
+        type: String
+    },        
     mpesaTransactionRef:{
         type: Array
     },
