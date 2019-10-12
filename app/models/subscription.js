@@ -24,11 +24,15 @@ const subscriptionSchema = new Schema({
     },
     status:{
         // Subscription active or expired
-        type: String
+        type: String,
+        default: "Inactive"
     },
     mpesaTransactionRef:{
+        type: Array
+    },
+    expires:{
         type: String
-    } 
+    }
 })
 
 module.exports = mongoose.model("SubscriptionSchema", subscriptionSchema);

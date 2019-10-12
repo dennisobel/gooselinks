@@ -21,6 +21,7 @@
     "mongoose": "^5.5.1",
     "morgan": "^1.9.1",
     "otplib": "^11.0.0",
+    "prettyjson": "^1.2.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "rxjs": "^6.4.0",
