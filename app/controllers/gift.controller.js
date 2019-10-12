@@ -34,9 +34,8 @@ gift.post = (req,res) => {
             // SEND SUBSCRIPRION SMS
             // console.log("send message")
             let sms = `You have received ${newGift.duration} of data from ${newGift.sender}`
-            sendMessage(newGift.recepient,sms).then(()=>{
-                sendMessage(newGift.sender,`Your gift to ${newGift.recepient} has been delivered.`)
-            })
+            sendMessage(newGift.recepient,sms)
+            sendMessage(newGift.sender,`Your gift to ${newGift.recepient} has been delivered.`)
         })
         .then(()=>{
             res.status(200).json({
