@@ -35,7 +35,11 @@ const stkPush =  async (amount,mobileNumber) => {
                 "TransactionDesc": "Subscription" 
             }
         }
-    ).then(data => data)
+    )
+    .then(data => data)
+    .catch(error => {
+        console.log("ERROR:",error)
+    })
 }
 
 // stkPush()
