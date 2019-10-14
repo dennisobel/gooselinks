@@ -5,6 +5,8 @@ const sendMessage = require('./../helpers/sms/sms').sendSMS
 const db = require("../models");
 
 const subscribe = {}
+
+/*
 const mpesaHook = {}
 
 mpesaHook.post = (req,res) => {
@@ -23,11 +25,7 @@ mpesaHook.post = (req,res) => {
     };
 
     let g
-    let s
-
-    // CHECK IF GIFT OR SUB
-
-   
+    let s   
 
     if(
         (()=>{
@@ -41,7 +39,8 @@ mpesaHook.post = (req,res) => {
         })() == null
     ){
         db.SubscriptionSchema.findOneAndUpdate({
-            phoneNumber:req.body.Body.stkCallback.CallbackMetadata.Item[4].Value
+            // phoneNumber:req.body.Body.stkCallback.CallbackMetadata.Item[4].Value
+            mpesaRequest:req.body.Body.stkCallback.MerchantRequestID
         },{
             mpesaTransactionRef:req.body,
             status:"Active"
@@ -68,13 +67,17 @@ mpesaHook.post = (req,res) => {
             })
         })() == null){
         db.GiftSchema.findOneAndUpdate({
-            phoneNumber:req.body.Body.stkCallback.CallbackMetadata.Item[4].Value
+            // phoneNumber:req.body.Body.stkCallback.CallbackMetadata.Item[4].Value
+            mpesaRequest:req.body.Body.stkCallback.MerchantRequestID
         },{
             status:"Active"
         },()=>{
-            console.log("send message")
-            let sms = `You have subscribed to ${req.body.duration} minutes of unlimited data @ ${req.body.amount}/-`
+            console.log("send gift message")
+            // SEND GIFT SMS
+            let sms = `You have received ${newGift.duration} of data from ${newGift.sender}`
             sendMessage(req.body.Body.stkCallback.CallbackMetadata.Item[4].Value,sms)
+            
+            sendMessage(req.body.Body.stkCallback.CallbackMetadata.Item[4].Value,`Your gift to ${newGift.recepient} has been delivered.`)
         }).then(()=>{
             res.status(200).json({
                 success:true,
@@ -82,12 +85,8 @@ mpesaHook.post = (req,res) => {
             })        
         })        
     }
-
-    // respond to safaricom servers with a success message
-    // res.json(message)
-
 }
-
+*/
 
 subscribe.post = (req,res) => {
     console.log("INCOMING SUBSCRIBE DATA:",req.body)
@@ -149,5 +148,5 @@ subscribe.get = (req,res) => {
 
 module.exports = {
     subscribe,
-    mpesaHook
+    // mpesaHook
 }
