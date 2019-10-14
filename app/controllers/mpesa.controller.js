@@ -64,7 +64,7 @@ mpesaHook.post = (req,res) => {
                 let sms = `You have received ${response.duration} of data from ${response.sender}`
                 sendMessage(response.recepient,sms)
                 
-                sendMessage(rsponse.sender,`Your gift to ${response.recepient} has been delivered.`)
+                sendMessage(response.sender,`Your gift to ${response.recepient} has been delivered.`)
             }).then(()=>{
                 res.status(200).json({
                     success:true,
