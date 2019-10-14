@@ -26,21 +26,20 @@ mpesaHook.post = (req,res) => {
     let s
 
     // CHECK IF GIFT OR SUB
-    db.SubscriptionSchema.findOne({
-        mpesaRequest:req.body.Body.stkCallback.MerchantRequestID
-    },(err,res)=>{
-        console.log("S",res)
-        s = res.mpesaRequest
-    })
 
-    db.GiftSchema.findOne({
-        mpesaRequest:req.body.Body.stkCallback.MerchantRequestID
-    },(err,res)=>{
-        console.log("G",res)
-        g = res.mpesaRequest
-    })    
+   
 
-    if(g == null){
+    if(
+        (()=>{
+            db.SubscriptionSchema.findOne({
+                mpesaRequest:req.body.Body.stkCallback.MerchantRequestID
+            },(err,res)=>{
+                console.log("S",res)
+                s = res
+                return s
+            })
+        })() == null
+    ){
         db.SubscriptionSchema.findOneAndUpdate({
             phoneNumber:req.body.Body.stkCallback.CallbackMetadata.Item[4].Value
         },{
@@ -58,7 +57,16 @@ mpesaHook.post = (req,res) => {
         })
     }
 
-    if(s == null){
+    if(
+        (()=>{
+            db.GiftSchema.findOne({
+                mpesaRequest:req.body.Body.stkCallback.MerchantRequestID
+            },(err,res)=>{
+                console.log("G",res)
+                g = res
+                return g
+            })
+        })() == null){
         db.GiftSchema.findOneAndUpdate({
             phoneNumber:req.body.Body.stkCallback.CallbackMetadata.Item[4].Value
         },{
