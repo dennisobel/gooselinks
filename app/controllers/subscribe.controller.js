@@ -113,7 +113,7 @@ subscribe.post = (req,res) => {
             duration:req.body.duration,
             amount:req.body.amount,
             expires:req.body.expires,
-            // mpesaRequest:response.MerchantRequestID
+            mpesaRequest:response.MerchantRequestID
         },()=>console.log("newSubscription: ",newSubscription))
         .save()
         .then(()=>{
