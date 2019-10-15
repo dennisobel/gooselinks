@@ -47,7 +47,7 @@ gift.get = (req,res) => {
     db.GiftSchema.find({
         recepient:req.params.phoneNumber
     },(err,doc) => {
-        // console.log("DOC:",doc)
+        console.log("GET GIFT DATA:",doc)
         if(doc){
             res.status(200).json({
                 success: true,
