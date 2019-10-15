@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 
 var clients = {};
-// require('./socket/socket.js')(io,clients)
+// require('./sockets/socket.js')(io,clients)
 
 server.listen(PORT,()=>console.log(`Live on ${PORT}`))
 routes(app);
