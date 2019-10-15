@@ -45,7 +45,8 @@ gift.post = (req,res) => {
 gift.get = (req,res) => {
     console.log("ïnside get gifts",req.params)
     db.GiftSchema.find({
-        recepient:req.params.phoneNumber
+        recepient:req.params.phoneNumber,
+        expires: {$gte: parseInt((new Date().getTime()).toString())}
     },(err,doc) => {
         console.log("GET GIFT DATA:",doc)
         if(doc){

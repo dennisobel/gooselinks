@@ -49,7 +49,8 @@ subscribe.post = (req,res) => {
 
 subscribe.get = (req,res) => {
     db.SubscriptionSchema.find({
-        phoneNumber:req.params.phoneNumber
+        phoneNumber:req.params.phoneNumber,
+        expires: {$gte: parseInt((new Date().getTime()).toString())}
     },(err,doc) => {
         console.log("GET SUBSCRIPTION DATA:",doc)
         if(doc){
