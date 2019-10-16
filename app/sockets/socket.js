@@ -1,6 +1,5 @@
 module.exports = (io,clients) => {
     io.on('connection', (socket) => {
-
         console.log("a new client has connected with the id " + socket.id + "!"); 
 
         socket.on("userData",(data)=>{
@@ -9,7 +8,7 @@ module.exports = (io,clients) => {
                 data
             }
         }) 
-        
+
         setInterval(()=>{
 
         },10000)

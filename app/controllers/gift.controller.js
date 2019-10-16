@@ -46,13 +46,16 @@ gift.get = (req,res) => {
     console.log("ïnside get gifts",req.params)
     db.GiftSchema.find({
         recepient:req.params.phoneNumber,
-        expires: {$gte: parseInt((new Date().getTime()).toString())}
+        // expires: {$gte: parseInt((new Date().getTime()).toString())}
     },(err,doc) => {
         console.log("GET GIFT DATA:",doc)
         if(doc){
+            let docs = doc.filter(el => {
+                return el.expires > parseInt((new Date().getTime()).toString())
+            })
             res.status(200).json({
                 success: true,
-                doc
+                doc:docs
             })
         }else{
             res.status(404).send('Sorry, User not found!')

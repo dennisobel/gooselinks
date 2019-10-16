@@ -60,20 +60,6 @@ subscribe.get = (req,res) => {
     },(err,doc) => {
         console.log("GET SUBSCRIPTION DATA:",doc)
         if(doc){
-
-            /*
-            io.on('connection', (socket) => {
-                console.log("a new client has connected with the id " + socket.id + "!"); 
-
-                socket.on("userData",(data)=>{
-
-                })
-                
-                socket.emit("getSubscriptions",{
-                    count:1
-                })	      
-            })          
-            */  
             
             res.status(200).json({
                 success: true,
