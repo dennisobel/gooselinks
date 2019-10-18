@@ -3,7 +3,8 @@ const ctrl = require("./../controllers/index");
 let {iBookSignup} = require('../controllers/authController');
 let {iBookLogin} = require('../controllers/authController');
 let {iBookOTP} = require('../controllers/authController');
-let {search} = require('../controllers/rapidapi.controller');
+// let {search} = require('../controllers/rapidapi.controller');
+let {search} = require('../controllers/google.controller')
 
 let {getFriend} = require('../controllers/friendsController');
 let {receiveMpesa} = require('../controllers/mpesa.controller');
@@ -21,12 +22,13 @@ let appRouter = (app)=>{
     // app.post('/receiveMpesa', receiveMpesa.post)
     app.post('/subscribe', subscribe.post)
     app.post('/hooks/mpesa',mpesaHook.post)
-    app.post('/search',search.post)
+    // app.post('/search',search.post)
     app.post('/gift',gift.post)
 
     app.get('/getfriend/:phoneNumber',getFriend.get)
     app.get('/getSubscriptions/:phoneNumber', subscribe.get)
     app.get('/getGift/:phoneNumber',gift.get)
+    app.get('/search/:searchTerm',search.get)
 
 }
 
