@@ -33,6 +33,9 @@ subscribe.post = (req,res) => {
             })
         })
     })
+    .catch(error => {
+        console.log("STK CONTROLLER ERROR:",error)
+    })
 }
 
 subscribe.get = (req,res) => {

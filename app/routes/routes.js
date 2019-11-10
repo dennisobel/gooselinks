@@ -3,6 +3,7 @@ const ctrl = require("./../controllers/index");
 let {iBookSignup} = require('../controllers/authController');
 let {iBookLogin} = require('../controllers/authController');
 let {iBookOTP} = require('../controllers/authController');
+let {resendOTP} = require('../controllers/authController');
 // let {search} = require('../controllers/rapidapi.controller');
 let {search} = require('../controllers/google.controller')
 
@@ -29,6 +30,7 @@ let appRouter = (app)=>{
     app.get('/getSubscriptions/:phoneNumber', subscribe.get)
     app.get('/getGift/:phoneNumber',gift.get)
     app.get('/search/:searchTerm',search.get)
+    app.get('/resendotp/:phoneNumber',resendOTP.get)
 
 }
 

@@ -38,7 +38,7 @@ const stkPush =  async (amount,mobileNumber) => {
     )
     .then(data => data)
     .catch(error => {
-        console.log("ERROR:",error)
+        console.log("STK ERROR:",error)
     })
 }
 

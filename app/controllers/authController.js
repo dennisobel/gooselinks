@@ -6,7 +6,7 @@ const otpSecret = require("./../configuration/otp");
 const otplib = require('otplib');
 
 const sendMessage = require('./../helpers/sms/sms').sendSMS
-
+// const sendMessage = require('./../helpers/sms/sms').sendSMS
 
 // Pass Hash
 const authConfig = require('../configuration/auth');
@@ -31,6 +31,7 @@ setUserInfo = (request) => {
 const iBookSignup = {}
 const iBookLogin = {}
 const iBookOTP = {}
+const resendOTP = {}
 
 // SMS PARAMETRES
 const smsuser = 'KBSACCO'
@@ -42,9 +43,7 @@ const smsunicode=0;
 
 iBookSignup.post = (req,res) => {
     console.log("INCOMING SIGNUP DATA:", req.body)
-
     const saltRounds = 10;
-
     // PREP DATA FOR DB
     const {
         userName,
@@ -83,8 +82,7 @@ iBookSignup.post = (req,res) => {
                 .save()
                 .then((newUser)=>{
                     let sms = `Hi, thank you for joining Goose Links, your One Time Password is ${OTP}`; 
-                    let URL = `http://messaging.openocean.co.ke/sendsms.jsp?user=${smsuser}&password=${smspassword}&mobiles=${req.body.data.phoneNumber}&sms=${sms}&clientsmsid=${smsclientsmsid}&senderid=${smssenderid}`
-                    
+                    // let URL = `http://messaging.openocean.co.ke/sendsms.jsp?user=${smsuser}&password=${smspassword}&mobiles=${req.body.data.phoneNumber}&sms=${sms}&clientsmsid=${smsclientsmsid}&senderid=${smssenderid}`                    
                     // helper.sendMessage(URL)   
                     sendMessage(req.body.data.phoneNumber,sms),                        
                     res.status(200).json({
@@ -110,7 +108,7 @@ iBookLogin.post = (req,res) => {
                         success: true,
                         data: docs
                     })
-                }else if(err){
+                }else if(err){                    
                     throw new Error;
                 }
             })
@@ -124,9 +122,7 @@ iBookOTP.post = (req,res) => {
         otp:req.body.val2.onetimepassword,
         phoneNumber: req.body.val1.data.doc.phoneNumber
     }
-
     console.log(data)
-
     db.UserSchema.findOneAndUpdate({
         phoneNumber:data.phoneNumber
     },{
@@ -149,13 +145,25 @@ iBookOTP.post = (req,res) => {
             }
         })
     })
-    // COMPARE OTP
-    // IF MATCH MARK USER AS VERIFIED
 }
 
+resendOTP.get = (req,res) => {
+    let phonenUmber = req.params.phoneNumber
+    // let OTP = otplib.authenticator.generate(otpSecret.secret)    
+    db.UserSchema.findOne({
+        phoneNumber
+    },(data)=>{
+        sendMessage(phoneNumber,`Hi, thank you for joining Goose Links, your One Time Password is ${data.OTP}`)        
+    }).then(()=>{
+        res.status(200).json({
+            success:true
+        })        
+    })
+}
 
 module.exports = {
     iBookSignup,
     iBookLogin,
-    iBookOTP
+    iBookOTP,
+    resendOTP
 }
