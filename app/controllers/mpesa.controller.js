@@ -38,7 +38,7 @@ mpesaHook.post = (req, res) => {
                     }, (err, doc, res) => {
                         console.log("SUBSCRIPTION DB RESPONSE:", res)
                         console.log("send subscription message")
-                        let sms = `You have subscribed to ${res.duration} minutes of unlimited data @ ${res.amount}/-`
+                        let sms = `You have subscribed to ${res.duration} minutes of data @ ${res.amount}/-`
                         sendMessage(res.phoneNumber, sms)
                     }).then(() => {
                         res.status(200).json({
@@ -66,7 +66,7 @@ mpesaHook.post = (req, res) => {
                         console.log("GIFT DB RESPONSE:", response)
                         console.log("send gift message")
                             // SEND GIFT SMS
-                        let sms = `You have received ${response.duration} of data from ${response.sender}`
+                        let sms = `You have received ${response.duration} minutes of data from ${response.sender}.`
                         sendMessage(response.recepient, sms)
                         sendMessage(response.sender, `Your gift to ${response.recepient} has been delivered.`)
                     }).then(() => {
