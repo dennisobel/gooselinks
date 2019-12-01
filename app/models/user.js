@@ -36,7 +36,11 @@ const userSchema = new Schema({
         type:Boolean,
         required: false,
         default:false
-    },    
+    },  
+    loggedIn:{
+        type:Boolean,
+        default:false
+    },
     subscription:[{type: Schema.Types.ObjectId, ref: "BookSchema"}]
     
 })

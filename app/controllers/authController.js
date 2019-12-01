@@ -99,18 +99,29 @@ iBookSignup.post = (req,res) => {
 iBookLogin.post = (req,res) => {
     console.log("INCOMING LOGIN DATA:", req.body)
     db.UserSchema.findOne({
-        userName:req.body.data.userName
+        userName:req.body.data.userName,
+        loggedIn:false
     },(err,docs) => {
         if(docs){
-            bcrypt.compare(req.body.data.password,docs.password,(err,response) => {
-                if(response){
-                    return res.status(200).json({
-                        success: true,
-                        data: docs
-                    })
-                }else if(err){                    
-                    throw new Error;
-                }
+            db.UserSchema.findByIdAndUpdate({
+                userName:req.body.data.userName,
+            },{
+                loggedIn:true
+            }).then(()=>{
+                bcrypt.compare(req.body.data.password,docs.password,(err,response) => {
+                    if(response){
+                        return res.status(200).json({
+                            success: true,
+                            data: docs
+                        })
+                    }else if(err){                    
+                        throw new Error;
+                    }
+                })
+            })
+        }else{
+            return res.status(200).json({
+                success:false
             })
         }
     })
